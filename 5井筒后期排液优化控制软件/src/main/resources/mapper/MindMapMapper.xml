@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywjs.jcsy.mapper.MindMapMapper">
+
+    <select id="getMindMapByDimension" resultMap="mindMapByDimension">
+        select d.dimension_name, group_concat(p.project_id) project_ids from dimension d
+        inner join project_dimension_relation pd on d.dimension_id=pd.dimension_id
+        inner join project p on p.project_id = pd.project_id
+        group by d.dimension_id
+    </select>
+    <resultMap id="mindMapByDimension" type="com.ywjs.jcsy.vo.MindMapByDimensionVo">
+
+    </resultMap>
+
+    <!--<select id="getTeacher" resultMap="teacherStu">-->
+        <!--select s.id sid ,s.name sname ,t.id tid ,t.name tname-->
+        <!--from student s, teacher t-->
+        <!--where s.tid = t.id and t.id =#{id}-->
+    <!--</select>-->
+    <!--<resultMap id="teacherStu" type="com.me.domain.Teacher2">-->
+        <!--<result property="id" column="tid"/>-->
+        <!--<result property="name" column="tname"/>-->
+        <!--<collection property="students" ofType="com.me.domain.Student2">-->
+            <!--<result property="id" column="sid"/>-->
+            <!--<result property="name" column="sname"/>-->
+            <!--<result property="tid" column="tid"/>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+</mapper>

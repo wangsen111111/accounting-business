@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywjs.jcsy.mapper.FileMapper">
+
+
+
+    <select id="queryFileByParms" parameterType="com.ywjs.jcsy.vo.SearchVo" resultType="com.ywjs.jcsy.entity.File">
+            select f.file_id,f.file_name,f.file_path,f.file_type
+            from file f
+            <if test="parms.projectName != null">
+                inner join file_project_relation fp on f.file_id = fp.file_id
+                inner join project p  on  fp.project_id = p.project_id
+            </if>
+            <if test="parms.nodeName != null">
+                inner join file_node_relation fn on fn.file_id = f.file_id
+                inner join mind_map mm on p.project_id = mm.project_id
+            </if>
+            <if test="parms.dimension != null">
+                inner join project_dimension_relation pd on pd.project_id = pd.project_id
+                inner join dimension d on pd.dimension_id = d.dimension_id
+            </if>
+            <if test="parms.tagName != null">
+                inner join file_tag_relation fr on fr.file_id = f.file_id
+                inner join tag t on t.tag_id = fr.tag_id
+            </if>
+            where 1=1
+            <if test="parms.projectName != null">
+                and p.project_name = #{parms.projectName}
+            </if>
+            <if test="parms.nodeName != null">
+                and mm.node_name = #{parms.nodeName}
+            </if>
+            <if test="parms.dimension != null">
+                and d.dimension_name = #{parms.dimension}
+            </if>
+            <if test="parms.tagName != null">
+                and t.tag_name =  #{parms.tagName}
+            </if>
+            <if test="parms.fileName != null">
+                and t.file_name =  #{parms.fileName}
+            </if>
+            <if test="parms.fileType != null">
+                and t.file_type =  #{parms.fileType}
+            </if>
+    </select>
+    <select id="getFilePathByNodeName" resultType="java.lang.String">
+        select f.file_path from mind_map mm
+        inner join file_node_relation fn on fn.node_id = mm.node_id
+        inner join file f on f.file_id = fn.file_id
+        where mm.node_name = #{nodeName}
+    </select>
+    <select id="getPageFileByProjectId" resultType="com.ywjs.jcsy.entity.File">
+        select f.*  from file f,file_project_relation fp
+        where fp.project_id=${projectId} and fp.file_id = f.file_id
+        <if test="key != null and  key != ''">
+            and  (f.file_name like '%${key}%' or f.file_type like '%${key}%')
+        </if>
+        order by f.file_id limit ${pageSize}  offset ((${pageNum} - 1) * ${pageSize})
+    </select>
+
+    <select id="getFileCountByProjectId" resultType="integer">
+        select count(1)  from file f,file_project_relation fp
+        where fp.project_id=${projectId} and fp.file_id = f.file_id
+        <if test="key != null and  key != ''">
+            and  (f.file_name like '%${key}%' or f.file_type like '%${key}%')
+        </if>
+    </select>
+    <select id="countFileType" resultType="java.util.Map">
+        select f.file_type  name ,count(1) value from file f
+        <if test="projectId != null and  projectId != ''">
+            , file_project_relation fp
+            where f.file_id = fp.file_id
+            and fp.project_id = #{projectId}
+        </if>
+       group by file_type
+    </select>
+    <select id="tagFileCount" resultType="java.lang.Integer">
+        select count(1) from file_project_relation fp,file_tag_relation ft
+        where  fp.file_id = ft.file_id and fp.project_id=#{projectId}
+    </select>
+
+
+</mapper>

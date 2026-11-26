@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ywjs.jcsy.mapper.TagMapper">
+
+    <select id="getHotTagWithFileCount" resultType="java.util.Map">
+        select t.tag_name name ,count(ft.file_id)  value  from tag t,file_tag_relation ft
+        <if test="projectId != null and  projectId != ''">
+            , file_project_relation fp
+        </if>
+        where ft.tag_id = t.tag_id
+        <if test="projectId != null and  projectId != ''">
+            and fp.file_id = ft.file_id
+            and fp.project_id = #{projectId}
+        </if>
+        group by t.tag_id ORDER BY count(ft.file_id) desc
+    </select>
+    <select id="getTagsByFileId" resultType="string" >
+        select tag_name from tag t,file_tag_relation ft
+        where t.tag_id = ft.tag_id and ft.file_id = #{fileId}
+    </select>
+</mapper>
