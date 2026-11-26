@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>运行总览 - 智慧热力管网</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="fragments :: sidebar('dashboard')"></div>
+<div th:replace="fragments :: topbar('运行总览')"></div>
+<main class="main">
+
+<div class="page-title"><div><h1>运行总览</h1><p>城市热力管网运行状态实时总览 · 数据为系统演示样例</p></div><a class="btn btn-light" href="/monitor">查看实时监测　→</a></div>
+<div class="grid stats">
+ <div class="card stat"><div><div class="stat-label">管网总长度</div><div class="stat-value" th:text="${#numbers.formatDecimal(stats.totalLength,1,1)}+' km'">26.7 km</div><div class="stat-foot">档案管线累计长度</div></div><div class="stat-icon">⌁</div></div>
+ <div class="card stat"><div><div class="stat-label">换热站总数</div><div class="stat-value"><span th:text="${stats.stationCount}">5</span><span class="stat-unit"> 座</span></div><div class="stat-foot">已登记换热站点</div></div><div class="stat-icon">▣</div></div>
+ <div class="card stat"><div><div class="stat-label">正常运行站点</div><div class="stat-value"><span th:text="${stats.onlineCount}">4</span><span class="stat-unit"> 座</span></div><div class="stat-foot">当前运行站点数量</div></div><div class="stat-icon">◉</div></div>
+ <div class="card stat"><div><div class="stat-label">待处理报警</div><div class="stat-value" th:text="${stats.pendingAlarms}">2</div><div class="stat-foot">等待确认与处理</div></div><div class="stat-icon">⚑</div></div>
+</div>
+<div class="grid section-grid">
+ <section class="card"><div class="card-head"><h3>关键运行参数</h3><span class="muted">示例数据 · 非现场实时采集</span></div>
+  <div class="metric-row">
+   <div class="metric"><label>供水温度</label><strong>82.6<span class="stat-unit"> ℃</span></strong><small>参考范围 75–90℃</small></div>
+   <div class="metric"><label>回水温度</label><strong>46.3<span class="stat-unit"> ℃</span></strong><small>参考范围 35–55℃</small></div>
+   <div class="metric"><label>管网压力</label><strong>0.82<span class="stat-unit"> MPa</span></strong><small>参考范围 0.6–1.2MPa</small></div>
+   <div class="metric"><label>瞬时流量</label><strong>1268<span class="stat-unit"> m³/h</span></strong><small>汇总展示值</small></div>
+  </div>
+  <div class="card-head" style="margin-top:25px"><h3>供水温度趋势（示意）</h3><span class="muted">单位：℃</span></div>
+  <div class="chart"><div class="bar-group"><div class="bar" style="height:58%"></div><span class="bar-label">周一</span></div><div class="bar-group"><div class="bar" style="height:69%"></div><span class="bar-label">周二</span></div><div class="bar-group"><div class="bar" style="height:64%"></div><span class="bar-label">周三</span></div><div class="bar-group"><div class="bar" style="height:76%"></div><span class="bar-label">周四</span></div><div class="bar-group"><div class="bar" style="height:71%"></div><span class="bar-label">周五</span></div><div class="bar-group"><div class="bar" style="height:83%"></div><span class="bar-label">周六</span></div><div class="bar-group"><div class="bar" style="height:78%"></div><span class="bar-label">周日</span></div></div>
+ </section>
+ <section class="card"><div class="card-head"><h3>最新报警信息</h3><a href="/alarms" class="muted">全部报警 →</a></div>
+  <div th:each="a:${alarms}" class="alarm-item"><span class="alarm-mark"></span><div style="flex:1"><b th:text="${a.alarm_type}">供水温度偏高</b><p th:text="${a.description}">报警描述</p><small th:text="${a.area}+' · '+${a.alarm_time}">城东片区</small></div><span class="pill" th:classappend="${a.status=='待处理'}?' warn':' gray'" th:text="${a.status}">待处理</span></div>
+ </section>
+</div>
+<section class="card"><div class="card-head"><h3>重点管线运行状态</h3><a href="/pipes" class="muted">管线档案 →</a></div><div class="table-wrap"><table><thead><tr><th>管线编号</th><th>管线名称</th><th>所属区域</th><th>管径</th><th>材质</th><th>长度(km)</th><th>运行状态</th></tr></thead><tbody><tr th:each="p:${pipes}"><td th:text="${p.pipe_code}"></td><td th:text="${p.pipe_name}"></td><td th:text="${p.area}"></td><td th:text="${p.diameter}"></td><td th:text="${p.material}"></td><td th:text="${p.length_km}"></td><td><span class="pill" th:classappend="${p.status=='运行中'}?'':' warn'" th:text="${p.status}"></span></td></tr></tbody></table></div></section>
+<div class="muted" style="text-align:center;margin-top:20px">智慧热力管网运行监测管理系统 · MySQL 演示版</div>
+
+</main>
+<script>function filterTable(inputId,tableId){var q=document.getElementById(inputId).value.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){r.style.display=r.innerText.toLowerCase().indexOf(q)>-1?'':'none';});}</script>
+</body></html>

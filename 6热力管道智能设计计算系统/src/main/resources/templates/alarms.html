@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>报警管理 - 智慧热力管网</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="fragments :: sidebar('alarms')"></div>
+<div th:replace="fragments :: topbar('报警管理')"></div>
+<main class="main">
+
+<div class="page-title"><div><h1>报警管理</h1><p>统一查看管网运行异常、设备离线及参数越限信息</p></div></div>
+<div th:if="${message}" class="notice" th:text="${message}"></div>
+<section class="card"><div class="toolbar"><h3 style="margin:0">报警记录</h3><input id="q" class="search" onkeyup="filterTable('q','alarmTable')" placeholder="搜索报警类型、设备或区域"></div>
+<div class="table-wrap"><table id="alarmTable"><thead><tr><th>报警编号</th><th>报警类型</th><th>关联设备</th><th>所属区域</th><th>级别</th><th>报警时间</th><th>报警描述</th><th>状态/操作</th></tr></thead><tbody><tr th:each="a:${alarms}"><td th:text="${a.alarm_code}"></td><td th:text="${a.alarm_type}"></td><td th:text="${a.device_name}"></td><td th:text="${a.area}"></td><td><span class="pill" th:classappend="${a.alarm_level=='重要'}?' danger':' warn'" th:text="${a.alarm_level}"></span></td><td th:text="${a.alarm_time}"></td><td th:text="${a.description}"></td><td><span class="pill" th:classappend="${a.status=='待处理'}?' warn':' gray'" th:text="${a.status}"></span><form th:if="${a.status=='待处理'}" th:action="@{'/alarms/handle/'+${a.id}}" method="post" style="display:inline;margin-left:7px"><button class="btn btn-light" style="padding:5px 8px" type="submit">处理</button></form></td></tr></tbody></table></div></section>
+
+</main>
+<script>function filterTable(inputId,tableId){var q=document.getElementById(inputId).value.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){r.style.display=r.innerText.toLowerCase().indexOf(q)>-1?'':'none';});}</script>
+</body></html>

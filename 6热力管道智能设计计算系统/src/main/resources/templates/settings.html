@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>系统信息 - 智慧热力管网</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="fragments :: sidebar('settings')"></div>
+<div th:replace="fragments :: topbar('系统信息')"></div>
+<main class="main">
+
+<div class="page-title"><div><h1>系统信息</h1><p>系统基础信息与运行环境</p></div></div>
+<section class="card"><div class="card-head"><h3>平台信息</h3><span class="pill">运行中</span></div><table><tbody>
+<tr><td style="width:190px">系统名称</td><td>智慧热力管网运行监测管理系统</td></tr>
+<tr><td>系统版本</td><td>1.0.0 Demo</td></tr><tr><td>开发框架</td><td>Spring Boot 2.7.5 + Thymeleaf</td></tr><tr><td>Java版本要求</td><td>JDK 1.8</td></tr><tr><td>默认数据库</td><td>MySQL 5.7 / 8.0</td></tr><tr><td>端口</td><td>8080</td></tr></tbody></table></section>
+<div class="notice" style="margin-top:16px">说明：本项目用于界面演示和功能验证，管网温度、压力、流量及报警均为预置模拟数据，不代表真实现场监测结果。接入现场设备前需完成通讯协议、数据校验、权限及安全配置。</div>
+
+</main>
+<script>function filterTable(inputId,tableId){var q=document.getElementById(inputId).value.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){r.style.display=r.innerText.toLowerCase().indexOf(q)>-1?'':'none';});}</script>
+</body></html>

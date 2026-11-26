@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>实时监测 - 智慧热力管网</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="fragments :: sidebar('monitor')"></div>
+<div th:replace="fragments :: topbar('实时监测')"></div>
+<main class="main">
+
+<div class="page-title"><div><h1>实时运行监测</h1><p>监测点温度、压力及流量状态 · 当前页面数据为预置演示样例</p></div><span class="pill"><i class="live-dot"></i> 监测样例</span></div>
+<div class="grid stats">
+<div class="card"><div class="stat-label">平均供水温度</div><div class="stat-value">82.6 <span class="stat-unit">℃</span></div><div class="stat-foot">各监测点统计展示</div></div>
+<div class="card"><div class="stat-label">平均回水温度</div><div class="stat-value">45.8 <span class="stat-unit">℃</span></div><div class="stat-foot">各监测点统计展示</div></div>
+<div class="card"><div class="stat-label">平均管网压力</div><div class="stat-value">0.79 <span class="stat-unit">MPa</span></div><div class="stat-foot">各监测点统计展示</div></div>
+<div class="card"><div class="stat-label">在线监测点</div><div class="stat-value">4 <span class="stat-unit">/ 5</span></div><div class="stat-foot">一个测点离线</div></div>
+</div>
+<section class="card"><div class="card-head"><h3>监测点数据列表</h3><span class="muted">单位：温度 ℃ / 压力 MPa / 流量 m³/h</span></div><div class="table-wrap"><table><thead><tr><th>监测点</th><th>所属区域</th><th>供水温度</th><th>回水温度</th><th>压力</th><th>流量</th><th>状态</th><th>更新时间</th></tr></thead><tbody><tr th:each="p:${points}"><td th:text="${p.point_name}"></td><td th:text="${p.area}"></td><td th:text="${p.supply_temp}"></td><td th:text="${p.return_temp}"></td><td th:text="${p.pressure}"></td><td th:text="${p.flow_rate}"></td><td><span class="pill" th:classappend="${p.status=='正常'}?'':' danger'" th:text="${p.status}"></span></td><td th:text="${p.update_time}"></td></tr></tbody></table></div></section>
+
+</main>
+<script>function filterTable(inputId,tableId){var q=document.getElementById(inputId).value.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){r.style.display=r.innerText.toLowerCase().indexOf(q)>-1?'':'none';});}</script>
+</body></html>

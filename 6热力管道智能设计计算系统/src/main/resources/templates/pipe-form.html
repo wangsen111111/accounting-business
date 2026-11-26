@@ -1,0 +1,16 @@
+<!DOCTYPE html><html lang="zh-CN" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>管线档案维护</title><link rel="stylesheet" th:href="@{/css/app.css}"></head><body>
+<div th:replace="fragments :: sidebar('pipes')"></div><div th:replace="fragments :: topbar('管线档案维护')"></div><main class="main">
+<div class="page-title"><div><h1 th:text="${mode}+'管线档案'">新增管线档案</h1><p>请填写管线基础资料，带 * 项为必填</p></div><a class="btn btn-light" href="/pipes">返回列表</a></div>
+<section class="card"><form action="/pipes/save" method="post" class="form-grid">
+<input type="hidden" name="id" th:value="${pipe==null?'':pipe.id}">
+<label>管线编号 *<input name="code" required th:value="${pipe==null?'':pipe.pipe_code}" placeholder="HP-006"></label>
+<label>管线名称 *<input name="name" required th:value="${pipe==null?'':pipe.pipe_name}" placeholder="西区供热主干线"></label>
+<label>所属区域<input name="area" th:value="${pipe==null?'':pipe.area}" placeholder="西区片区"></label>
+<label>管径规格<input name="diameter" th:value="${pipe==null?'':pipe.diameter}" placeholder="DN400"></label>
+<label>管道材质<input name="material" th:value="${pipe==null?'':pipe.material}" placeholder="预制直埋保温管"></label>
+<label>管线长度(km) *<input name="length" type="number" step="0.01" min="0" required th:value="${pipe==null?'':pipe.length_km}"></label>
+<label>设计压力(MPa)<input name="pressure" type="number" step="0.01" value="1.60" th:value="${pipe==null?1.60:pipe.design_pressure}"></label>
+<label>建设年份<input name="year" type="number" min="1950" max="2100" value="2020" th:value="${pipe==null?2020:pipe.install_year}"></label>
+<label>运行状态<select name="status"><option th:selected="${pipe==null or pipe.status=='运行中'}" value="运行中">运行中</option><option th:selected="${pipe!=null and pipe.status=='检修中'}" value="检修中">检修中</option><option th:selected="${pipe!=null and pipe.status=='停运'}" value="停运">停运</option></select></label>
+<div class="form-actions"><a class="btn btn-light" href="/pipes">取消</a> <button class="btn" type="submit">保存档案</button></div>
+</form></section></main></body></html>

@@ -1,0 +1,20 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><body>
+<aside th:fragment="sidebar(active)" class="sidebar">
+ <div class="brand"><div class="brand-icon">热</div><div><b>智慧热力</b><small>HEAT NETWORK PLATFORM</small></div></div>
+ <div class="nav-caption">运行管理</div>
+ <a th:href="@{/}" th:classappend="${active=='dashboard'}?' active'"><span>▦</span>运行总览</a>
+ <a th:href="@{/monitor}" th:classappend="${active=='monitor'}?' active'"><span>⌁</span>实时监测</a>
+ <a th:href="@{/pipes}" th:classappend="${active=='pipes'}?' active'"><span>▤</span>管道档案</a>
+ <a th:href="@{/stations}" th:classappend="${active=='stations'}?' active'"><span>▣</span>换热站管理</a>
+ <a th:href="@{/alarms}" th:classappend="${active=='alarms'}?' active'"><span>⚑</span>报警管理</a>
+ <a th:href="@{/analysis}" th:classappend="${active=='analysis'}?' active'"><span>▥</span>统计分析</a>
+ <a th:href="@{/reports}" th:classappend="${active=='reports'}?' active'"><span>▤</span>综合报表</a>
+ <div class="nav-caption">运维管理</div>
+ <a th:href="@{/patrol}" th:classappend="${active=='patrol'}?' active'"><span>✓</span>巡检管理</a>
+ <a th:href="@{/workorders}" th:classappend="${active=='workorders'}?' active'"><span>▧</span>维修工单</a>
+ <a th:href="@{/alarm-rules}" th:classappend="${active=='rules'}?' active'"><span>⚑</span>报警规则</a>
+ <div class="nav-caption">系统设置</div><a th:href="@{/settings}" th:classappend="${active=='settings'}?' active'"><span>⚙</span>系统信息</a>
+ <div class="sidebar-bottom"><div class="avatar">管</div><div><b th:text="${session.loginUser} ?: '管理员'">管理员</b><small><a th:href="@{/logout}" style="padding:0;margin:5px 0 0;color:#8fa8c2;background:none">退出登录</a></small></div><span class="online-dot"></span></div>
+</aside>
+<header th:fragment="topbar(title)" class="topbar"><div><span class="crumb">智慧热力管网</span><span class="slash"> / </span><b th:text="${title}">运行总览</b></div><div class="top-right"><span class="live-dot"></span>服务运行中 <span class="top-divider"></span><span>◷</span><span id="clock">运行监测平台</span><div class="top-avatar">管</div></div></header>
+</body></html>

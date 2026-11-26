@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="zh-CN" xmlns:th="http://www.thymeleaf.org">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>统计分析 - 智慧热力管网</title><link rel="stylesheet" th:href="@{/css/app.css}"></head>
+<body>
+<div th:replace="fragments :: sidebar('analysis')"></div>
+<div th:replace="fragments :: topbar('统计分析')"></div>
+<main class="main">
+
+<div class="page-title"><div><h1>运行统计分析</h1><p>展示热力管网关键运行指标及区域监测情况</p></div></div>
+<div class="grid stats"><div class="card"><div class="stat-label">管网档案总数</div><div class="stat-value">5 <span class="stat-unit">条</span></div><div class="stat-foot">示例统计</div></div><div class="card"><div class="stat-label">管线总长度</div><div class="stat-value">26.7 <span class="stat-unit">km</span></div><div class="stat-foot">示例统计</div></div><div class="card"><div class="stat-label">换热站在线率</div><div class="stat-value">80<span class="stat-unit">%</span></div><div class="stat-foot">4 / 5 个站点</div></div><div class="card"><div class="stat-label">待处理报警</div><div class="stat-value">2 <span class="stat-unit">条</span></div><div class="stat-foot">当前样例记录</div></div></div>
+<div class="grid section-grid"><section class="card"><div class="card-head"><h3>供回水温度对比</h3><span class="muted">单位：℃ · 演示统计</span></div><div class="chart"><div class="bar-group"><div class="bar" style="height:84%"></div><span class="bar-label">城东</span></div><div class="bar-group"><div class="bar" style="height:78%"></div><span class="bar-label">滨河</span></div><div class="bar-group"><div class="bar" style="height:81%"></div><span class="bar-label">高新</span></div><div class="bar-group"><div class="bar" style="height:73%"></div><span class="bar-label">北城</span></div><div class="bar-group"><div class="bar" style="height:80%"></div><span class="bar-label">南站</span></div></div><div class="legend" style="margin-top:14px"><span><i style="background:#2b91d2"></i>供水温度</span><span><i style="background:#8bc9dc"></i>回水温度</span></div></section>
+<section class="card"><div class="card-head"><h3>运行分析说明</h3></div><div class="alarm-item"><span class="alarm-mark" style="background:#26b78a"></span><div><b>总体运行状态</b><p>当前示例数据中，多数换热站处于运行状态。</p></div></div><div class="alarm-item"><span class="alarm-mark"></span><div><b>设备状态关注</b><p>北城换热站处于检修状态，建议关注恢复进度。</p></div></div><div class="alarm-item"><span class="alarm-mark" style="background:#d96565"></span><div><b>报警处理建议</b><p>优先核查温度偏高及压力波动相关记录。</p></div></div></section></div>
+
+</main>
+<script>function filterTable(inputId,tableId){var q=document.getElementById(inputId).value.toLowerCase();document.querySelectorAll('#'+tableId+' tbody tr').forEach(function(r){r.style.display=r.innerText.toLowerCase().indexOf(q)>-1?'':'none';});}</script>
+</body></html>
