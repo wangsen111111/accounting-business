@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      force: true
+
+spring:
+  application:
+    name: gfecmp-backend
+  jackson:
+    default-property-inclusion: non_null
+    date-format: yyyy-MM-dd HH:mm:ss
+
+# 模拟采集配置（技术验证版核心参数）
+gfecmp:
+  simulation:
+    # clock  = 按真实时钟 1:1 对齐（默认）：样本表 15:18:30 的数据显示为"今天 15:18:30"，
+    #          现实时间过 24 点后自动从样本表 00:00 重新开始
+    # replay = 倍速回放：按 step-points 快进，走到表尾进入"次日"（日期 +1 天）
+    mode: clock
+    # 后端刷新周期：20 秒（真实时间每过 20 秒，数据前进 20 秒）
+    tick-millis: 20000
+    # 仅 replay 模式生效：每个周期推进的采样点数量（样本表 10 秒一个点，30 ≈ 15 倍速，2 = 1:1）
+    step-points: 30
+    # 仅 replay 模式生效：启动时快进到当天第 480 分钟（08:00）
+    start-offset-minutes: 480
+    data-file: classpath:data/2025年1月1日_累计能耗样本.xlsx
+
+logging:
+  level:
+    root: info
+    com.greenfactory.gfecmp: info
+  pattern:
+    console: "%d{HH:mm:ss.SSS} %-5level [%thread] %logger{36} - %msg%n"

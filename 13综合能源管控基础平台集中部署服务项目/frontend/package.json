@@ -1,0 +1,22 @@
+{
+  "name": "gfecmp-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "综合能源管控基础平台集中部署服务项目 - 前端（Vue3 + Vite）",
+  "scripts": {
+    "dev": "vite --host",
+    "build": "vite build",
+    "preview": "vite preview --host"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "echarts": "^5.5.1",
+    "vue": "^3.4.38",
+    "vue-router": "^4.4.5"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.1.4",
+    "vite": "^5.4.8"
+  }
+}
