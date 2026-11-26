@@ -1,0 +1,30 @@
+CREATE TABLE IF NOT EXISTS energy_device (
+ id BIGINT PRIMARY KEY AUTO_INCREMENT,
+ device_code VARCHAR(40) NOT NULL,
+ device_name VARCHAR(100) NOT NULL,
+ energy_type VARCHAR(20) NOT NULL,
+ location VARCHAR(120),
+ status VARCHAR(20) NOT NULL,
+ metric_value DECIMAL(12,2) DEFAULT 0,
+ unit VARCHAR(20),
+ updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+CREATE TABLE IF NOT EXISTS energy_alarm (
+ id BIGINT PRIMARY KEY AUTO_INCREMENT,
+ alarm_title VARCHAR(120) NOT NULL,
+ energy_type VARCHAR(20),
+ alarm_level VARCHAR(20),
+ alarm_status VARCHAR(20),
+ alarm_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+ detail VARCHAR(500)
+);
+CREATE TABLE IF NOT EXISTS energy_work_order (
+ id BIGINT PRIMARY KEY AUTO_INCREMENT,
+ order_no VARCHAR(40) NOT NULL,
+ title VARCHAR(120) NOT NULL,
+ device_name VARCHAR(100),
+ assignee VARCHAR(60),
+ priority VARCHAR(20),
+ status VARCHAR(20),
+ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

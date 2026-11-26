@@ -1,0 +1,12 @@
+<!DOCTYPE html><html xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>钢丝试井智能分析平台</title><link rel="stylesheet" th:href="@{/css/app.css}"></head><body>
+<aside class="sidebar"><div class="brand">◈ WIRELINE<span style="color:#6fa0ff"> AI</span><small>INTELLIGENCE PLATFORM</small></div><div class="nav-label">工作台</div><nav class="nav">
+<a th:href="@{/}" th:classappend="${active=='home'?' active':''}"><span class="ico">▦</span>运行总览</a>
+<a th:href="@{/wells}" th:classappend="${active=='wells'?' active':''}"><span class="ico">⌖</span>井筒档案</a>
+<a th:href="@{/tests}" th:classappend="${active=='tests'?' active':''}"><span class="ico">◷</span>试井任务</a>
+<a th:href="@{/data}" th:classappend="${active=='data'?' active':''}"><span class="ico">⌁</span>数据采集管理</a>
+<a th:href="@{/analysis}" th:classappend="${active=='analysis'?' active':''}"><span class="ico">✧</span>智能分析预警</a>
+<a th:href="@{/reports}" th:classappend="${active=='reports'?' active':''}"><span class="ico">▤</span>分析报告</a>
+<div class="nav-label">系统管理</div><a th:href="@{/settings}" th:classappend="${active=='settings'?' active':''}"><span class="ico">⚙</span>分析规则配置</a>
+</nav><div class="side-bottom">● 系统运行正常<br><br>WIRELINE PLATFORM · V1.0</div></aside>
+<div class="main"><header class="topbar"><div class="crumb">油田数字化作业平台　/　<span th:text="${pageTitle}">运行总览</span></div><div class="user"><span class="avatar">A</span><span th:text="${loginUser}">admin</span>　·　<a href="/logout" style="color:#8190a8;text-decoration:none">退出</a></div></header>
+<main class="content"><div th:replace="${content}"></div></main></div></body></html>

@@ -1,0 +1,25 @@
+server:
+  port: 8080
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+spring:
+  application:
+    name: 综合能源智慧管控平台
+  thymeleaf:
+    cache: false
+    encoding: UTF-8
+  datasource:
+    url: jdbc:h2:mem:energydb;MODE=MySQL;DB_CLOSE_DELAY=-1;DATABASE_TO_LOWER=TRUE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+logging:
+  level:
+    org.thymeleaf: INFO

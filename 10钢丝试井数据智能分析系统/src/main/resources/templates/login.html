@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录 - WIRELINE </title>
+    <link rel="stylesheet" th:href="@{/css/app.css}">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", system-ui, sans-serif;
+        }
+        body.login-wrap {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fafbfc;
+        }
+        .login-box {
+            width: 400px;
+            padding: 48px 40px;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+        }
+        .login-box h2 {
+            font-size: 24px;
+            color: #1f2937;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        .login-box > p.desc {
+            color: #6b7280;
+            font-size: 14px;
+            margin-bottom: 36px;
+        }
+        .muted {
+            display: block;
+            font-size: 14px;
+            color: #374151;
+            margin: 20px 0 8px;
+        }
+        input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e5e7eb;
+            border-radius: 10px;
+            font-size: 15px;
+            color: #1f2937;
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+        input:focus {
+            border-color: #2864e8;
+        }
+        .btn {
+            width: 100%;
+            margin-top: 28px;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background-color: #2864e8;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+        .btn:hover {
+            background-color: #1f54cc;
+        }
+        .error-tip {
+            color: #d6534b;
+            margin-top: 16px;
+            font-size: 14px;
+            text-align: center;
+        }
+        .footer-note {
+            margin-top: 28px;
+            font-size: 13px;
+            color: #9ca3af;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="login-wrap">
+<form class="login-box" method="post" action="/login">
+    <h2>欢迎登录</h2>
+    <p class="desc">钢丝试井数据智能分析平台</p>
+
+    <label class="muted">用户名</label>
+    <input name="username" value="admin" placeholder="请输入用户名">
+
+    <label class="muted">密码</label>
+    <input name="password" type="password" value="admin123" placeholder="请输入密码">
+
+    <button class="btn">登 录 系 统</button>
+
+    <p class="error-tip" th:if="${error}" th:text="${error}"></p>
+    <div class="footer-note">默认账号：admin　默认密码：admin123</div>
+</form>
+</body>
+</html>
